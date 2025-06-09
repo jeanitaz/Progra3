@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name="libros")
+
+
+
 public class Libro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,5 +22,9 @@ public class Libro {
     private String editorial;
     private int paginas;
     private Double precio;
+
+    @ManyToOne
+    @JoinColumn(name= "codigo_autor")
+    private Autor autor;
 
 }
