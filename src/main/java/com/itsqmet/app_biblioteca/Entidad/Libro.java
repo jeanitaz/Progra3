@@ -27,4 +27,7 @@ public class Libro {
     @JoinColumn(name= "codigo_autor")
     private Autor autor;
 
+    @ManyToOne
+    @JoinColumn(name= "codigo_genero")
+    private genero genero;
 }

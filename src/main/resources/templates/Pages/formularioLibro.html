@@ -31,6 +31,14 @@ FORMULARIO HTML
         <label for="precio" class="form-label">Precio</label>
         <input type="text" class="form-control" id="precio" th:field="*{precio}">
     </div>
+    <div class="mb-3">
+        <label for="autor" >Autor</label>
+        <select id="autor" class="form-select" th:field="*{autor.id}">
+            <option th:each="autor : ${autores}" th:value="${autor.id}" th:text="${autor.nombre}">
+                Seleccione un autor
+            </option>
+        </select>
+    </div>
     <button type="submit" class="btn btn-guardar">Guardar</button>
 </form>
 </body>

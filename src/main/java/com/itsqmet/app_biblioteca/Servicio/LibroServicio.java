@@ -26,7 +26,7 @@ public class LibroServicio {
             return libroRepositorio.findByTituloContainingIgnoreCase(buscarLibro);
         }
     }
-    //Buscar LIbro por Id
+    //Buscar Libro por Id
     public Optional<Libro> buscarLibroPorId(Long id){
         return libroRepositorio.findById(id);
     }
@@ -39,5 +39,11 @@ public class LibroServicio {
     //Eliminar Libro
     public void eliminarLibro(Long id){
         libroRepositorio.deleteById(id);
+    }
+
+    //Buscar  los Libros con los Autores
+    public List<Libro> buscarLibrosAutor(Long id) {
+        List<Libro> librosAutor = libroRepositorio.findByAutorId(id);
+        return librosAutor;
     }
 }

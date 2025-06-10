@@ -1,6 +1,8 @@
 package com.itsqmet.app_biblioteca.Controlador;
 
+import com.itsqmet.app_biblioteca.Entidad.Autor;
 import com.itsqmet.app_biblioteca.Entidad.Libro;
+import com.itsqmet.app_biblioteca.Servicio.AutorServicio;
 import com.itsqmet.app_biblioteca.Servicio.LibroServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,9 @@ import java.util.Optional;
 public class LibroControlador {
     @Autowired
     private LibroServicio libroServicio;
+
+    @Autowired
+    private AutorServicio autorServicio;
 
     //Leer
     @GetMapping("/libros")
@@ -29,6 +34,9 @@ public class LibroControlador {
     @GetMapping("/formularioLibro")
     public String formularioLibro(Model model) {
         model.addAttribute("libro", new Libro());
+        // Pasar los autores desde el servicio autor al formulario
+        List<Autor> autores = autorServicio.mostrarAutores();
+        model.addAttribute("autores", autores);
         return "Pages/formularioLibro";
     }
 
@@ -42,6 +50,10 @@ public class LibroControlador {
     @GetMapping("editarLibro/{id}")
     public String actualizarLibro(@PathVariable Long id, Model model) {
         Optional<Libro> libro = libroServicio.buscarLibroPorId(id);
+
+        //Pasar los autores desde el servicio autor al formulario
+        List<Autor> autores = autorServicio.mostrarAutores();
+        model.addAttribute("autores", autores);
         model.addAttribute( "libro", libro);
         return "Pages/formularioLibro";
     }

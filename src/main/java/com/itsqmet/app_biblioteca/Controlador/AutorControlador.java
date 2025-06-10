@@ -20,6 +20,9 @@ public class AutorControlador {
     @Autowired
     private AutorServicio autorServicio;
 
+    @Autowired
+    private LibroServicio libroServicio;
+
     //Leer
     @GetMapping("/autores")
     public String Listarlibros(@RequestParam(name = "buscarAutor", required = false, defaultValue = "")
@@ -56,5 +59,15 @@ public class AutorControlador {
     public String eliminarAutor(@PathVariable Long id){
         autorServicio.eliminarAutor(id);
         return "redirect:/autores";
+    }
+
+    //Metodo para obtener libro por autor
+    @GetMapping("/librosAutor/{id}")
+    public String obtenerLibrosPorAutor(@PathVariable Long id, Model model){
+        Autor autor = autorServicio.obtenerAutorConLibros(id);
+        List<Libro> librosAutor = libroServicio.buscarLibrosAutor(autor.getId());
+        model.addAttribute("librosAutor", librosAutor);
+        model.addAttribute("autor", autor);
+        return "Pages/listaAutorLibro";
     }
 }

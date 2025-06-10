@@ -25,8 +25,9 @@ LISTA LIBROS
             <th>Código</th>
             <th>Título</th>
             <th>Editorial</th>
-            <th>Precio</th>
             <th>Número de copias</th>
+            <th>Precio</th>
+            <th>Autor</th>
             <th>Opciones</th>
         </tr>
         </thead>
@@ -37,7 +38,9 @@ LISTA LIBROS
             <td th:text="${libro.editorial}"></td>
             <td th:text="${libro.paginas}"></td>
             <td th:text="${libro.precio}"></td>
+            <td th:text="${libro.autor.nombre}"></td>
             <td>
+                <a th:href="@{/librosAutor/} + ${libro.id}" class="btn btn-actualizar">Libros</a>
                 <a th:href="@{/editarLibro/} + ${libro.id}" class="btn btn-actualizar">Actualizar</a>
                 <a th:href="@{/eliminarLibro/} + ${libro.id}" class="btn btn-eliminar">Eliminar</a>
             </td>
