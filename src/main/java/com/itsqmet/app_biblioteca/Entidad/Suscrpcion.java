@@ -12,9 +12,9 @@ public class Suscrpcion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
      private Long id;
 
-    private Enum tipo;
+    private String tipo;
 
     @OneToOne
-    @JoinColumn(name = "codigo_usuario")
+    @JoinColumn(name = "codigo_usuario", unique = true)
     private Usuario usuario;
 }
