@@ -1,14 +1,20 @@
 package com.itsqmet.app_biblioteca.Controlador;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.itsqmet.app_biblioteca.Entidad.Autor;
 import com.itsqmet.app_biblioteca.Entidad.Libro;
 import com.itsqmet.app_biblioteca.Servicio.AutorServicio;
 import com.itsqmet.app_biblioteca.Servicio.LibroServicio;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+        import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,5 +69,23 @@ public class LibroControlador {
     public String eliminarLibro(@PathVariable Long id){
         libroServicio.eliminarLibro(id);
         return "redirect:/libros";
+    }
+
+    @GetMapping("/libros/pdf")
+    public void exportarPDF(HttpServletResponse response) throws IOException, DocumentException {
+        response.setContentType("application/pdf");
+        response.setHeader("Content-Disposition", "attachment; filename=libros.pdf");
+        List<Libro> libros = libroServicio.mostraLibros();
+        Document documento = new Document();
+        PdfWriter.getInstance(documento, response.getOutputStream());
+        documento.open();
+        documento.add(new Paragraph("Lista de Libros"));
+        documento.add(new Paragraph(" "));
+
+        for (Libro libro : libros) {
+            documento.add(new Paragraph("Titulo: " + libro.getTitulo()));
+            documento.add(new Paragraph("Autor: " + libro.getAutor().getNombre()));
+        }
+        documento.close();
     }
 }

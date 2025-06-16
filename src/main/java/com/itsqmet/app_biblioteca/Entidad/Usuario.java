@@ -16,6 +16,9 @@ public class Usuario {
 
     private String nombre;
     private String direccion;
+    private String email;
+    private String username;
+    private String password;
 
     @OneToMany(mappedBy = "usuario")
     private List<Prestamo> prestamos;
