@@ -1,140 +1,98 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<!--NAV-->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary p-4">
-    <div class="container-fluid">
-        <span class="nav-link active text-white font-weight-bold fs-3">Registro de Usuarios</span>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="navbar-brand" th:href="@{/}">Usuarios</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+        <html lang="en" xmlns:th="http://www.thymeleaf.org">
+        <head>
+            <meta charset="UTF-8">
+            <title>Registro de Usuarios</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <!-- Bootstrap 5 CDN -->
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+            <style>
+                body {
+                    min-height: 100vh;
+                    background: linear-gradient(120deg, #f0f4f8 0%, #c9e7fa 100%);
+                    display: flex;
+                    flex-direction: column;
+                }
+                .form-container {
+                    max-width: 450px;
+                    margin: 40px auto;
+                    background: #fff;
+                    border-radius: 18px;
+                    box-shadow: 0 6px 32px rgba(37,99,235,0.10);
+                    padding: 2.5rem 2rem;
+                }
+                .form-title {
+                    font-weight: 700;
+                    color: #2563eb;
+                    margin-bottom: 1.5rem;
+                    text-align: center;
+                }
+                .btn-guardar {
+                    background: #2563eb;
+                    color: #fff;
+                    font-weight: 600;
+                }
+                .btn-guardar:hover {
+                    background: #1d4ed8;
+                }
+                footer {
+                    margin-top: auto;
+                }
+            </style>
+        </head>
+        <body>
+        <!--NAV-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary p-4 rounded-bottom shadow">
+            <div class="container-fluid">
+                <span class="nav-link active text-white font-weight-bold fs-3">Registro de Usuarios</span>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="navbar-brand" th:href="@{/}">Usuarios</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
 
-<div>
-    <form th:action="@{/guardarUsuario}" method="post" th:object="${usuario}">
-        <div class="mb-3">
-            <input type="number" class="form-control" id="codigo" th:field="*{id}" hidden>
+        <div class="form-container">
+            <h2 class="form-title">Crear Usuario</h2>
+            <form th:action="@{/guardarUsuario}" method="post" th:object="${usuario}">
+                <input type="number" class="form-control" id="codigo" th:field="*{id}" hidden>
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" th:field="*{nombre}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="direccion" class="form-label">Dirección</label>
+                    <input type="text" id="direccion" class="form-control" th:field="*{direccion}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" class="form-control" th:field="*{email}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="username" class="form-label">Nombre de Usuario</label>
+                    <input type="text" id="username" class="form-control" th:field="*{username}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" id="password" class="form-control" th:field="*{password}" required>
+                </div>
+                <button type="submit" class="btn btn-guardar w-100">Guardar</button>
+            </form>
         </div>
-        <div class="mb-3">
-            <label for="nombre" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="nombre" th:field="*{nombre}">
-        </div>
-        <div class="mb-3 mt-3">
-            <label for="direccion">Dirección:</label>
-            <input type="text" id="direccion" class="form-control" name="direccion" th:field="*{direccion}"><br><br>
-        </div>
-        <div class="mb-3">
-            <label for="email">Email:</label>
-            <input type="email" id="email" class="form-control" name="email" th:field="*{email}"><br><br>
-        </div>
-        <div class="mb-3">
-            <label for="username">Nombre de Usuario:</label>
-            <input type="text" id="username" class="form-control" name="email" th:field="*{username}"><br><br>
-        </div>
-        <div class="mb-3">
-            <label for="password">Password:</label>
-            <input type="password" id="password" class="form-control" name="email" th:field="*{password}"><br><br>
-        </div>
-        <!--<label for="rol">Rol</label>
-        <select name="rol" id="rol" required>
-            <option value="ADMIN">Administrador</option>
-            <option value="BIBLIOTECARIO">Bibliotecario</option>
-            <option value="ESTUDIANTE">Estudiante</option>
-        </select>-->
-        <br>
-        <br>
-        <button type="submit" class="btn btn-guardar btn-lg text-white bg-primary border-0 rounded shadow-sm hover:bg-primary-dark focus:ring-2 focus:ring-primary">
-            Guardar
-        </button>
 
-    </form>
-</div>
-
-<!-- Footer -->
-<footer class="bg-dark text-white py-4 mt-5">
-    <div class="container text-center">
-        <p class="h5 mb-2">Biblioteca Virtual</p>
-        <p class="small">© 2025 Biblioteca. Todos los derechos reservados.</p>
-    </div>
-</footer>
-
-</body>
-<body>
-<!--NAV-->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary p-4">
-    <div class="container-fluid">
-        <span class="nav-link active text-white font-weight-bold fs-3">Registro de Usuarios</span>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="navbar-brand" th:href="@{/}">Biblioteca</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<div>
-    <form th:action="@{/guardarUsuario}" method="post" th:object="${usuario}">
-        <div class="mb-3">
-            <input type="number" class="form-control" id="codigo" th:field="*{id}" hidden>
-        </div>
-        <div class="mb-3">
-            <label for="nombre" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="nombre" th:field="*{nombre}">
-        </div>
-        <div class="mb-3 mt-3">
-            <label for="direccion">Dirección:</label>
-            <input type="text" id="direccion" class="form-control" name="direccion" th:field="*{direccion}"><br><br>
-        </div>
-        <div class="mb-3">
-            <label for="email">Email:</label>
-            <input type="email" id="email" class="form-control" name="email" th:field="*{email}"><br><br>
-        </div>
-        <div class="mb-3">
-            <label for="username">Nombre de Usuario:</label>
-            <input type="text" id="username" class="form-control" name="email" th:field="*{username}"><br><br>
-        </div>
-        <div class="mb-3">
-            <label for="password">Password:</label>
-            <input type="password" id="password" class="form-control" name="email" th:field="*{password}"><br><br>
-        </div>
-        <!--<label for="rol">Rol</label>
-        <select name="rol" id="rol" required>
-            <option value="ADMIN">Administrador</option>
-            <option value="BIBLIOTECARIO">Bibliotecario</option>
-            <option value="ESTUDIANTE">Estudiante</option>
-        </select>-->
-        <br>
-        <br>
-        <button type="submit" class="btn btn-guardar btn-lg text-white bg-primary border-0 rounded shadow-sm hover:bg-primary-dark focus:ring-2 focus:ring-primary">
-            Guardar
-        </button>
-
-    </form>
-</div>
-
-<!-- Footer -->
-<footer class="bg-dark text-white py-4 mt-5">
-    <div class="container text-center">
-        <p class="h5 mb-2">Biblioteca Virtual</p>
-        <p class="small">© 2025 Biblioteca. Todos los derechos reservados.</p>
-    </div>
-</footer>
-</body>
-</html>
+        <footer class="bg-dark text-white py-4 mt-5 rounded-top">
+            <div class="container text-center">
+                <p class="h5 mb-2">Biblioteca Virtual</p>
+                <p class="small">© 2025 Biblioteca. Todos los derechos reservados.</p>
+            </div>
+        </footer>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+        </body>
+        </html>

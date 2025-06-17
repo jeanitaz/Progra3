@@ -23,9 +23,8 @@
 
             // Leer usuarios
             @GetMapping("/usuarios")
-            public String listarUsuarios(@RequestParam(name = "buscarUsuario", required = false, defaultValue = "") String buscarUsuario, Model model) {
-                Optional<Usuario> usuarios = usuarioServicio.buscarUsuarioPorId(Long.valueOf(buscarUsuario));
-                model.addAttribute("buscarUsuario", buscarUsuario);
+            public String listarUsuarios(Model model) {
+                List<Usuario> usuarios = usuarioServicio.mostrarUsuario();
                 model.addAttribute("usuarios", usuarios);
                 return "Pages/listaUsuarios";
             }
