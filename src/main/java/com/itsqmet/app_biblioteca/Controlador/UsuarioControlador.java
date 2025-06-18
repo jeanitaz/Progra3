@@ -1,7 +1,9 @@
 
         package com.itsqmet.app_biblioteca.Controlador;
 
+        import com.itsqmet.app_biblioteca.Entidad.Rol;
         import com.itsqmet.app_biblioteca.Entidad.Usuario;
+        import com.itsqmet.app_biblioteca.Servicio.RolServicio;
         import com.itsqmet.app_biblioteca.Servicio.UsuarioServicio;
         import org.springframework.beans.factory.annotation.Autowired;
         import org.springframework.stereotype.Controller;
@@ -20,6 +22,8 @@
         public class UsuarioControlador {
             @Autowired
             private UsuarioServicio usuarioServicio;
+            @Autowired
+            private RolServicio rolServicio;
 
             // Leer usuarios
             @GetMapping("/usuarios")
@@ -33,6 +37,8 @@
             @GetMapping("/formularioUsuario")
             public String formularioUsuario(Model model) {
                 model.addAttribute("usuario", new Usuario());
+                List<Rol> roles = rolServicio.mostrarRoles();
+                model.addAttribute("roles", roles);
                 return "Pages/FormularioUsuario";
             }
 
@@ -48,6 +54,8 @@
             public String actualizarUsuario(@PathVariable Long id, Model model) {
                 Optional<Usuario> usuario = usuarioServicio.buscarUsuarioPorId(id);
                 usuario.ifPresent(u -> model.addAttribute("usuario", usuario));
+                List<Rol> roles = rolServicio.mostrarRoles();
+                model.addAttribute("roles", roles);
                 return "Pages/FormularioUsuario";
             }
 

@@ -83,6 +83,14 @@
                     <label for="password" class="form-label">Password</label>
                     <input type="password" id="password" class="form-control" th:field="*{password}" required>
                 </div>
+                <div class="mb-3">
+                    <label for="rol" >Rol</label>
+                    <select id="rol" class="form-select" th:field="*{rol.id}">
+                        <option th:each="rol : ${roles}" th:value="${rol.id}" th:text="${rol.nombre}">
+                            Seleccione un Rol
+                        </option>
+                    </select>
+                </div>
                 <button type="submit" class="btn btn-guardar w-100">Guardar</button>
             </form>
         </div>

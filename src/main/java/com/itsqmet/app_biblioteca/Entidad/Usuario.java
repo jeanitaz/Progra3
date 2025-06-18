@@ -27,10 +27,13 @@ public class Usuario {
     @OneToOne(mappedBy = "usuario")
     private Suscrpcion suscripcion;
 
-
     /*@ManyToMany
     @JoinTable(name="prestamo",
     joinColumns = @JoinColumn(name = "codigo_usuario"),
             inverseJoinColumns = @JoinColumn(name = "codigo_libro"))
     private List<Libro> libros;*/
+
+    @ManyToOne
+    @JoinColumn(name = "id_rol")
+    private Rol rol;
 }
